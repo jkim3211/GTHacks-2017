@@ -9,10 +9,8 @@ import java.awt.event.InputEvent;
 class LeapListener extends Listener {
 	public Robot robot;
 
-
 	public void onInIt(Controller controller) {
 		System.out.println("Initializing");
-		
 	}
 	public void onConnect(Controller controller) {
 		System.out.println("Connected to Motion Sensor");
@@ -37,6 +35,7 @@ class LeapListener extends Listener {
 		try {
 			robot = new Robot();
 		} catch (Exception e) {
+			e.printStackTrace();
 		}
 		InteractionBox box = frame.interactionBox();
 		for (Finger f: frame.fingers()) {
@@ -49,7 +48,6 @@ class LeapListener extends Listener {
 		}
 		
 		GestureList gestures = frame.gestures();
-
 		for (int i = 0; i < gestures.count(); i++) {
 			Gesture gesture = gestures.get(i);
 			if (gesture.type() == Type.TYPE_KEY_TAP) {
@@ -65,11 +63,8 @@ public class LeapController {
 	public static void main(String[] args) {
 		LeapListener listener = new LeapListener();
 		Controller controller = new Controller();
-		
 		controller.addListener(listener);
-		
 		System.out.println("Press enter to quit");
-		
 		try {
 			System.in.read();
 			
@@ -77,7 +72,5 @@ public class LeapController {
 			e.printStackTrace();
 		}
 		controller.removeListener(listener);
-		
 	}
-
 }
